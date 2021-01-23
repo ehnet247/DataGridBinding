@@ -25,9 +25,10 @@
                     Converter={StaticResource IsObsoleteToTextDecorationsConverter}}" />
     </Style>
   </Window.Resources>
-  
-  <DataGrid
-    DataContext="{StaticResource ItemCollectionViewSource}"
+
+    <DataGrid
+    x:Name="MainWindowDataGrid">
+        <!--DataContext="{StaticResource ItemCollectionViewSource}"
     ItemsSource="{Binding}"
     AutoGenerateColumns="False"
     CanUserAddRows="False">
@@ -41,6 +42,6 @@
       <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" FontWeight="Bold"/>
       <DataGridTextColumn Binding="{Binding Path=Quantity}" Header="Quantity" ElementStyle="{StaticResource QuantityStyle}"/>
 
-    </DataGrid.Columns>
+    </DataGrid.Columns>-->
   </DataGrid>
 </Window>

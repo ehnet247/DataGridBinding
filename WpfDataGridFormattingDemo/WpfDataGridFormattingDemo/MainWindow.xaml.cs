@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -35,9 +36,20 @@ namespace Demo {
       CollectionViewSource itemCollectionViewSource;
       itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
       itemCollectionViewSource.Source = itemList;
-      
+            BuildDataGrid();
+            BindDataGrid();
     }
 
+        private void BuildDataGrid()
+        {
+            DataColumn gridColumn = new DataColumn();
+            MainWindowDataGrid.Columns.Add(gridColumn);
+        }
 
-  }
+        private void BindDataGrid()
+        {
+        }
+
+
+    }
 }
