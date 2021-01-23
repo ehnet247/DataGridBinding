@@ -18,36 +18,44 @@ namespace Demo {
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
-  public partial class MainWindow: Window {
+  public partial class MainWindow: Window
+    {
+        private StockItem item;
 
 
-    public MainWindow() {
+        public MainWindow() {
       InitializeComponent();
 
-      //create business data
-      var itemList = new List<StockItem>();
-      itemList.Add(new StockItem {Name= "Many items",      Quantity="100", IsObsolete="false"});
-      itemList.Add(new StockItem {Name= "Enough items",    Quantity="10",  IsObsolete="false"});
-      itemList.Add(new StockItem {Name= "Shortage item",   Quantity="1",   IsObsolete="false"});
-      itemList.Add(new StockItem {Name= "Item with error", Quantity="-1",  IsObsolete="false"});
-      itemList.Add(new StockItem {Name= "Obsolete item",   Quantity="200", IsObsolete="true" });
+            //create business data
+            item = new StockItem();
+            item.CultureList = new System.Collections.ObjectModel.ObservableCollection<string>();
+      //      item.CultureList.Add(new StockItem {Name= "Many items",      Quantity="100", IsObsolete="false"});
+      //      item.CultureList.Add(new StockItem {Name= "Enough items",    Quantity="10",  IsObsolete="false"});
+      //itemList.Add(new StockItem {Name= "Shortage item",   Quantity="1",   IsObsolete="false"});
+      //      item.CultureList.Add(new StockItem {Name= "Item with error", Quantity="-1",  IsObsolete="false"});
+      //itemList.Add(new StockItem {Name= "Obsolete item",   Quantity="200", IsObsolete="true" });
 
-      //link business data to CollectionViewSource
-      CollectionViewSource itemCollectionViewSource;
-      itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-      itemCollectionViewSource.Source = itemList;
+      
             BuildDataGrid();
             BindDataGrid();
     }
 
         private void BuildDataGrid()
         {
-            DataColumn gridColumn = new DataColumn();
-            MainWindowDataGrid.Columns.Add(gridColumn);
+            foreach (string culture in item.CultureList)
+            {
+                DataGridTextColumn textColumn = new DataGridTextColumn();
+                textColumn.Header = culture;
+                MainWindowDataGrid.Columns.Add(textColumn);
+            }
         }
 
         private void BindDataGrid()
         {
+            //link business data to CollectionViewSource
+            CollectionViewSource itemCollectionViewSource;
+            itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
+            itemCollectionViewSource.Source = item.CultureList;
         }
 
 
