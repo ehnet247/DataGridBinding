@@ -6,7 +6,7 @@ using System.Text;
 namespace Demo {
   public class StockItem {
     public string Name { get; set; }
-    public int Quantity { get; set; }
-    public bool IsObsolete { get; set; }
+    public string Quantity { get; set; }
+    public string IsObsolete { get; set; }
   }
 }

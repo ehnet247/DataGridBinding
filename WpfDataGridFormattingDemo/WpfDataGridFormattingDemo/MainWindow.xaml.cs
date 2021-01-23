@@ -25,11 +25,11 @@ namespace Demo {
 
       //create business data
       var itemList = new List<StockItem>();
-      itemList.Add(new StockItem {Name= "Many items",      Quantity=100, IsObsolete=false});
-      itemList.Add(new StockItem {Name= "Enough items",    Quantity=10,  IsObsolete=false});
-      itemList.Add(new StockItem {Name= "Shortage item",   Quantity=1,   IsObsolete=false});
-      itemList.Add(new StockItem {Name= "Item with error", Quantity=-1,  IsObsolete=false});
-      itemList.Add(new StockItem {Name= "Obsolete item",   Quantity=200, IsObsolete=true });
+      itemList.Add(new StockItem {Name= "Many items",      Quantity="100", IsObsolete="false"});
+      itemList.Add(new StockItem {Name= "Enough items",    Quantity="10",  IsObsolete="false"});
+      itemList.Add(new StockItem {Name= "Shortage item",   Quantity="1",   IsObsolete="false"});
+      itemList.Add(new StockItem {Name= "Item with error", Quantity="-1",  IsObsolete="false"});
+      itemList.Add(new StockItem {Name= "Obsolete item",   Quantity="200", IsObsolete="true" });
 
       //link business data to CollectionViewSource
       CollectionViewSource itemCollectionViewSource;
