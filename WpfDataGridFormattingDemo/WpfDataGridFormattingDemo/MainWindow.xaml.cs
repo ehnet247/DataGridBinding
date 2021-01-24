@@ -20,44 +20,71 @@ namespace Demo {
   /// </summary>
   public partial class MainWindow: Window
     {
-        private StockItem item;
+        private Dictionnary dictionnary;
 
 
         public MainWindow() {
       InitializeComponent();
 
             //create business data
-            item = new StockItem();
-            item.CultureList = new System.Collections.ObjectModel.ObservableCollection<string>();
-      //      item.CultureList.Add(new StockItem {Name= "Many items",      Quantity="100", IsObsolete="false"});
-      //      item.CultureList.Add(new StockItem {Name= "Enough items",    Quantity="10",  IsObsolete="false"});
-      //itemList.Add(new StockItem {Name= "Shortage item",   Quantity="1",   IsObsolete="false"});
-      //      item.CultureList.Add(new StockItem {Name= "Item with error", Quantity="-1",  IsObsolete="false"});
-      //itemList.Add(new StockItem {Name= "Obsolete item",   Quantity="200", IsObsolete="true" });
+            dictionnary = new Dictionnary();
+            // Initialize cultures list
+            dictionnary.CultureList = new System.Collections.ObjectModel.ObservableCollection<string>();
+            dictionnary.CultureList.Add("Fr");
+            dictionnary.CultureList.Add("En");
+            dictionnary.CultureList.Add("De");
+            dictionnary.CultureList.Add("Es");
+
+            // Initialize a few strings
+            dictionnary.Expressions = new System.Collections.ObjectModel.ObservableCollection<Dictionary<string, string>>();
+            Dictionary<string, string> expression = new Dictionary<string, string>();
+            expression.Add("Fr", "Phrase");
+            expression.Add("En", "Sentence");
+            expression.Add("De", "Formulierung");
+            expression.Add("Es", "fraseo");
+            dictionnary.Expressions.Add(expression);
+            expression = new Dictionary<string, string>();
+            expression.Add("Fr", "Réussite");
+            expression.Add("En", "Success");
+            expression.Add("De", "Erfolg");
+            expression.Add("Es", "Éxito");
+            dictionnary.Expressions.Add(expression);
 
       
             BuildDataGrid();
-            BindDataGrid();
+            //BindDataGrid();
     }
 
         private void BuildDataGrid()
         {
-            foreach (string culture in item.CultureList)
+
+            //link business data to CollectionViewSource
+            CollectionViewSource itemCollectionViewSource;
+            itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
+            itemCollectionViewSource.Source = dictionnary.CultureList;
+            MainWindowDataGrid.DataContext = itemCollectionViewSource;
+            MainWindowDataGrid.ItemsSource = dictionnary.Expressions;
+            foreach (string culture in dictionnary.CultureList)
             {
-                DataGridTextColumn textColumn = new DataGridTextColumn();
+                //DataGridTextColumn textColumn = new DataGridTextColumn();
+                //textColumn.Header = culture;
+                var textColumn = new DataGridTextColumn();
                 textColumn.Header = culture;
+                // Attempt to bind the column 
+                //textColumn.Binding = new BindingBase();
+                textColumn.Binding.BindingGroupName = culture;
+
                 MainWindowDataGrid.Columns.Add(textColumn);
             }
         }
 
         private void BindDataGrid()
         {
-            //link business data to CollectionViewSource
-            CollectionViewSource itemCollectionViewSource;
-            itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-            itemCollectionViewSource.Source = item.CultureList;
         }
 
-
+        private void ButtonBind_Click(object sender, RoutedEventArgs e)
+        {
+            BindDataGrid();
+        }
     }
 }
